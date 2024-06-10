@@ -16,6 +16,8 @@ import (
 // @Success 200 {object} models.User
 // @Failure 400 {object} models.ErrorResponse
 // @Router /get_user/{id} [get]
+
+// GetUser - The GetUser function retrieves a user from the database using the identifier obtained from the context parameter
 func (h Handler) GetUser(c *gin.Context) {
 	id := c.Param("id")
 	user, err := h.Service.GetUser(id)

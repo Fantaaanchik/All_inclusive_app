@@ -15,6 +15,8 @@ import (
 // @Success 200 {array} models.User
 // @Failure 401 {object} models.ErrorResponse
 // @Router /get_all_users [get]
+
+// GetAllUsers - This function retrieves all users from the database.
 func (h Handler) GetAllUsers(c *gin.Context) {
 	users, err := h.Service.GetAllUsers()
 	if err != nil {

@@ -17,6 +17,8 @@ import (
 // @Success 200 {object} models.TokenResponse
 // @Failure 400 {object} models.ErrorResponse
 // @Router /login [post]
+
+// Login - Sign in with login and password
 func (h Handler) Login(c *gin.Context) {
 	var user models.LoginStruct
 	if err := c.ShouldBindJSON(&user); err != nil {

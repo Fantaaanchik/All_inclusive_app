@@ -16,11 +16,13 @@ import (
 // @Success 200 {object} models.CreateUserResponse
 // @Failure 400 {object} models.ErrorResponse
 // @Router /register [post]
+
+// Register - Registering a new user in the DB
 func (h Handler) Register(c *gin.Context) {
 	var user models.RegisterStruct
 
 	if err := c.ShouldBindJSON(&user); err != nil {
-		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "somthing went`s wrong"})
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "something went`s wrong"})
 		return
 	}
 

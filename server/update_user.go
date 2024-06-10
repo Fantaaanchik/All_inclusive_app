@@ -19,6 +19,8 @@ import (
 // @Failure 400 {object} models.ErrorResponse
 // @Failure 401 {object} models.ErrorResponse
 // @Router /update_user/{id} [put]
+
+// UpdateUser - Updating the user parameters with the ID and new parameters
 func (h Handler) UpdateUser(c *gin.Context) {
 	var user models.UpdateUserStruct
 

@@ -1,11 +1,11 @@
 package service
 
-import "all_inclusive_app/repo"
+import "all_inclusive_app/repository"
 
 type Service struct {
-	Repository *repo.Repository
+	Repository *repository.Repository
 }
 
-func NewService(repo *repo.Repository) *Service {
+func NewService(repo *repository.Repository) *Service {
 	return &Service{Repository: repo}
 }

@@ -6,7 +6,7 @@ import (
 	"all_inclusive_app/config"
 	"all_inclusive_app/db"
 	_ "all_inclusive_app/docs" // Этот пакет содержит сгенерированные файлы Swagger
-	"all_inclusive_app/repo"
+	"all_inclusive_app/repository"
 	"all_inclusive_app/server"
 	"all_inclusive_app/service"
 
@@ -35,18 +35,18 @@ func main() {
 	config.ReadConfigApp("config/config.json")
 	config.ReadConfigDB("config/configDB.json")
 
-	db := db.InitDB()
+	dbSettings := db.InitDB()
 
-	repository := repo.NewRepository(db)
+	repositorySettings := repository.NewRepository(dbSettings)
 
-	service := service.NewService(repository)
+	serviceSettings := service.NewService(repositorySettings)
 
 	r := gin.Default()
-	
+
 	// Swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	handler := server.NewHandler(service, r)
+	handler := server.NewHandler(serviceSettings, r)
 
 	handler.AllRoutes()
 

@@ -1,15 +1,15 @@
 package service
 
 import (
-	"log"
+	"fmt"
 	"strconv"
 )
 
 func (s *Service) DeleteUser(idS string) error {
 	id, err := strconv.Atoi(idS)
 	if err != nil {
-		log.Println("cannot convert id to int", err.Error())
-		return err
+		wrappedErr := fmt.Errorf("cannot convert id to int, Error: %v", err.Error())
+		return wrappedErr
 	}
 	return s.Repository.DeleteUser(int64(id))
 }

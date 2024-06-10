@@ -15,12 +15,14 @@ import (
 // @Success 200 {object} models.DeleteUserResponse
 // @Failure 401 {object} models.ErrorResponse
 // @Router /delete_user/{id} [delete]
+
+// DeleteUser - Delete user in DB with ID from context parameter
 func (h Handler) DeleteUser(c *gin.Context) {
 	id := c.Param("id")
 
 	err := h.Service.DeleteUser(id)
 	if err != nil {
-		log.Println("", err.Error())
+		log.Println(err.Error())
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "bad request"})
 		return
 	}
