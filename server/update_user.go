@@ -2,7 +2,7 @@ package server
 
 import (
 	"all_inclusive_app/models"
-	"log"
+	"github.com/sirupsen/logrus"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -27,14 +27,14 @@ func (h Handler) UpdateUser(c *gin.Context) {
 	id := c.Param("id")
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "bad request, wrong parameters"})
-		log.Println("Find Error in func UpdateUser on path server, Error description:", err.Error())
+		logrus.Println("Find Error in func UpdateUser on path server, Error description:", err.Error())
 		return
 	}
 
 	err := h.Service.UpdateUser(id, user)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, models.ErrorResponse{ErrorDescription: "cannot update user with this parameters"})
-		log.Println(err.Error())
+		logrus.Println(err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, models.UpdateUserResponse{Message: "user successfully updated"})

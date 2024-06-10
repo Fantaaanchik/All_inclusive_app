@@ -1,6 +1,7 @@
 package main
 
 import (
+	"all_inclusive_app/logger"
 	"log"
 
 	"all_inclusive_app/config"
@@ -34,7 +35,9 @@ import (
 func main() {
 	config.ReadConfigApp("config/config.json")
 	config.ReadConfigDB("config/configDB.json")
+	config.ReadConfigLogger("config/configLogger.json")
 
+	logger.InitLogger()
 	dbSettings := db.InitDB()
 
 	repositorySettings := repository.NewRepository(dbSettings)

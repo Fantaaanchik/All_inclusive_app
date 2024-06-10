@@ -7,10 +7,9 @@ import (
 	"log"
 )
 
-
-
 var Configure models.App
 var ConfigDB models.DBConnection
+var ConfigureLogger models.LoggerStruct
 
 func ReadConfigApp(F string) {
 	byteValue, err := ioutil.ReadFile(F)
@@ -27,7 +26,6 @@ func ReadConfigApp(F string) {
 
 }
 
-
 func ReadConfigDB(F string) {
 	byteValue, err := ioutil.ReadFile(F)
 	if err != nil {
@@ -36,6 +34,21 @@ func ReadConfigDB(F string) {
 	}
 	err = json.Unmarshal(byteValue, &ConfigDB)
 	log.Println(ConfigDB)
+	if err != nil {
+		log.Fatalf("%v", err)
+		return
+	}
+
+}
+
+func ReadConfigLogger(F string) {
+	byteValue, err := ioutil.ReadFile(F)
+	if err != nil {
+		log.Fatalf("%v", err)
+		return
+	}
+	err = json.Unmarshal(byteValue, &ConfigureLogger)
+	log.Println(ConfigureLogger)
 	if err != nil {
 		log.Fatalf("%v", err)
 		return

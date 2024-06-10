@@ -2,7 +2,7 @@ package server
 
 import (
 	"all_inclusive_app/models"
-	"log"
+	"github.com/sirupsen/logrus"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -17,13 +17,13 @@ import (
 // @Failure 400 {object} models.ErrorResponse
 // @Router /get_user/{id} [get]
 
-// GetUser - The GetUser function retrieves a user from the database using the identifier obtained from the context parameter
+// GetUser - This function retrieves a user from the database using the identifier obtained from the context parameter
 func (h Handler) GetUser(c *gin.Context) {
 	id := c.Param("id")
 	user, err := h.Service.GetUser(id)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "bad request, cannot find user with this ID"})
-		log.Println(err.Error())
+		logrus.Println(err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, models.GetUserResponse{User: user})

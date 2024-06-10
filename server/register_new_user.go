@@ -2,6 +2,7 @@ package server
 
 import (
 	"all_inclusive_app/models"
+	"github.com/sirupsen/logrus"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -23,12 +24,14 @@ func (h Handler) Register(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "something went`s wrong"})
+		logrus.Println("Cannot bind JSON in func Register, Error:", err.Error())
 		return
 	}
 
 	err := h.Service.Register(user)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "bad request, try again"})
+		logrus.Println(err.Error())
 		return
 	}
 

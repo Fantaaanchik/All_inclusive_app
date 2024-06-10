@@ -2,7 +2,7 @@ package server
 
 import (
 	"all_inclusive_app/models"
-	"log"
+	"github.com/sirupsen/logrus"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -20,7 +20,7 @@ import (
 func (h Handler) GetAllUsers(c *gin.Context) {
 	users, err := h.Service.GetAllUsers()
 	if err != nil {
-		log.Println(err.Error())
+		logrus.Println(err.Error())
 		c.JSON(http.StatusInternalServerError, models.ErrorResponse{ErrorDescription: "cannot get all users"})
 		return
 	}

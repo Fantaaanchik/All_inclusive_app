@@ -2,7 +2,7 @@ package server
 
 import (
 	"all_inclusive_app/models"
-	"log"
+	"github.com/sirupsen/logrus"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -22,9 +22,10 @@ func (h Handler) DeleteUser(c *gin.Context) {
 
 	err := h.Service.DeleteUser(id)
 	if err != nil {
-		log.Println(err.Error())
+		logrus.Println(err.Error())
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "bad request"})
 		return
 	}
+
 	c.JSON(http.StatusOK, models.DeleteUserResponse{Message: "user successfully deleted!"})
 }
