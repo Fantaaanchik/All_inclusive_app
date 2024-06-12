@@ -18,7 +18,7 @@ import (
 
 // DeleteUser - Delete user in DB with ID from context parameter
 func (h Handler) DeleteUser(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Query("id")
 
 	err := h.Service.DeleteUser(id)
 	if err != nil {

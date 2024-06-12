@@ -1,4 +1,6 @@
 {
     "server_name": "localhost",
-    "port_run": ":8080"
+    "port_run": ":8080",
+    "secret": "secret",
+    "token_life_seconds": 3600
 }

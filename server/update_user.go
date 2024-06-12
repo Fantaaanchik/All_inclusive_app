@@ -24,7 +24,7 @@ import (
 func (h Handler) UpdateUser(c *gin.Context) {
 	var user models.UpdateUserStruct
 
-	id := c.Param("id")
+	id := c.Query("id")
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "bad request, wrong parameters"})
 		logrus.Println("Find Error in func UpdateUser on path server, Error description:", err.Error())

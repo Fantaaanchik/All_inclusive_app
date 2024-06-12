@@ -20,15 +20,22 @@ import (
 
 // Login - Sign in with login and password
 func (h Handler) Login(c *gin.Context) {
-	var user models.LoginStruct
-	if err := c.ShouldBindJSON(&user); err != nil {
+	var loginData models.LoginStruct
+	if err := c.ShouldBindJSON(&loginData); err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "bad request, please, try again"})
 		logrus.Println("Cannot bind JSON in func Login, Error:", err.Error())
 		return
 	}
-	token, err := h.Service.Login(user)
+	user, err := h.Service.Login(loginData)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "bad request, cannot find user with this parameters"})
+		logrus.Println(err.Error())
+		return
+	}
+
+	token, err := GenerateToken(user.ID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "bad request, cannot generate token for this user"})
 		logrus.Println(err.Error())
 		return
 	}

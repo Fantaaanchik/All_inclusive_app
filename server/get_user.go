@@ -19,7 +19,7 @@ import (
 
 // GetUser - This function retrieves a user from the database using the identifier obtained from the context parameter
 func (h Handler) GetUser(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Query("id")
 	user, err := h.Service.GetUser(id)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{ErrorDescription: "bad request, cannot find user with this ID"})

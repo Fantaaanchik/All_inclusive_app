@@ -3,6 +3,7 @@ package main
 import (
 	"all_inclusive_app/logger"
 	"log"
+	"net/http"
 
 	"all_inclusive_app/config"
 	"all_inclusive_app/db"
@@ -52,6 +53,10 @@ func main() {
 	handler := server.NewHandler(serviceSettings, r)
 
 	handler.AllRoutes()
+
+	r.NoRoute(func(c *gin.Context) {
+		c.JSON(http.StatusNotFound, gin.H{"code": "PAGE_NOT_FOUND", "message": "page not found"})
+	})
 
 	err := r.Run(config.Configure.PortRun)
 	if err != nil {
